@@ -42,7 +42,7 @@ public class OnlineBankingSystem {
     public static void populatecustomer(int cust_id,Connection c)
     {
             try {
-            PreparedStatement st1=c.prepareStatement("Select * from Person where id=? ");
+            PreparedStatement st1=c.prepareStatement("Select * from person where id=?");
             st1.setInt(1, cust_id);
             ResultSet rs=st1.executeQuery();
             PreparedStatement st2=c.prepareStatement("Select * from Customer where cust_id=? ");
@@ -157,15 +157,60 @@ public class OnlineBankingSystem {
             Logger.getLogger(OnlineBankingSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
-    
+    public static void populatedebitcard(int cust_id,Connection c)
+    {
+        try {
+            PreparedStatement st1=c.prepareStatement("select debit_id,card_no,issuedate,expdate,cvv,status from debitcard debit,card c where c.usedby=? and debit.debit_id=c.card_id");
+           //int did, double cardno, String issuedate, String expdate, int cvv, String status
+            st1.setInt(1, cust_id);
+            ResultSet rs=st1.executeQuery();
+            
+            while(rs.next())
+            {
+                 
+                 
+                 dcard=new DebitCard(rs.getInt(1),rs.getDouble(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getString(6));
+                 //int cid, double maxcredit, double cardno, double issuedate, double expdate, int cvv, String status
+                 
+                System.out.println(dcard);
+            
+            } 
+           
+            } catch (SQLException ex) {
+            Logger.getLogger(OnlineBankingSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
+    public static void populaterecordsforcustomer(int cust_id, Connection c)
+    {
+        populatecustomer(cust_id,c);
+        populatesavings(cust_id,c);
+        populatechecking(cust_id,c);
+        populatecreditcard(cust_id,c);
+        populatedebitcard(cust_id,c);
+    }
+    public static boolean login(int cust_id, Connection c, String password)
+    {
+        populaterecordsforcustomer(cust_id,c);
+        
+        return person.password.equals(password);
+    }
+    public static void getcustdetails()
+    {
+       System.out.println("All Customer Details");
+       System.out.println(" Customer Details "+ person);
+       System.out.println(" DebitCard Details "+ dcard);
+       System.out.println(" Credit Card Details "+ ccard);
+       System.out.println(" SavingsAccount Details "+ sav_acc);
+       System.out.println("Checking Account Details"+check_acc);
+    }
     public static void main(String[] args) {
        
         
-        initialization();
-        populatecustomer(1,c);
-       // populatesavings(1,c);
-        populatechecking(1,c);
+       
+       initialization();
         Scanner sc=new Scanner(System.in);
+        while(true)
+        {
         System.out.println(" ONLINE BANKING SYSTEM ");
         System.out.println("Enter Choice");
         System.out.println("1.Login\n2.Signup");
@@ -174,10 +219,25 @@ public class OnlineBankingSystem {
         {
             case 1:
                 System.out.println("Enter Customer ID");
-                String cust_id=sc.next();
-                System.out.println("Enter Password");
+                int cust_id=sc.nextInt();
                 
-                String password=sc.next();
+                 //populaterecordsforcustomer(cust_id,c);
+                 System.out.println("Enter Password");
+                  String password=sc.next();
+                 if(login(cust_id,c,password))
+                 {
+                     getcustdetails();
+                 }
+                 else
+                 {
+                     System.out.println("Wrong ID and Password");
+                 }
+                     
+                        
+                
+                
+                
+               
                 break;
             case 2:
                 System.out.println("SIGN UP DETAILS");
@@ -208,7 +268,7 @@ public class OnlineBankingSystem {
                 break;
              
         }
-        
+        }
         
     }
     public static void initialization()
@@ -394,7 +454,7 @@ class Card
         
     }
 
-    public Card(int cid, double cardno, double issuedate, double expdate, int cvv, String status) {
+    public Card(int cid, double cardno, String issuedate, String expdate, int cvv, String status) {
         this.cid = cid;
         this.cardno = cardno;
         this.issuedate = issuedate;
