@@ -7,7 +7,12 @@ package onlinebankingsystem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,6 +38,30 @@ public class OnlineBankingSystem {
      static CreditCard ccard=null;
      
      
+    public static void populateperson(int cust_id,Connection c)
+    {
+            try {
+            PreparedStatement st1=c.prepareStatement("Select ");
+            st1.setInt(1, sid);
+            ResultSet rs=st1.executeQuery();
+            while(rs.next())
+            {
+                 int materialid=rs.getInt(1);
+                 String descriptions=rs.getString(2);
+                 
+                 double weights=rs.getDouble(3);
+                 int quantity=rs.getInt(4);
+                 String recommendation=rs.getString(5);
+                 //materialsused.add(new MaterialProvision(materialid,descriptions,weights,recommendation));
+                 //System.out.println(materialsused);
+                 
+            } 
+            } catch (SQLException ex) {
+            Logger.getLogger(OnlineBankingSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
     public static void main(String[] args) {
        
         
