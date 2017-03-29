@@ -18,7 +18,23 @@ public class OnlineBankingSystem {
     /**
      * @param args the command line arguments
      */
+     static Person person=null;
+     static Customer customer=null;
+     static Manager manager1=null;
+     static Account sacc=null;
+     static Account cacc=null;
+     static Loan sav_acc=null;
+     static EducationLoan educationlocal=null;
+     static HomeLoan homeloan=null;
+     static CarLoan carloan=null;
+     static Manager manager=null;
+     static Card card=null;
+     static DebitCard dcard=null;
+     static CreditCard ccard=null;
+     
+     
     public static void main(String[] args) {
+       
         
         initialization();
         Scanner sc=new Scanner(System.in);
