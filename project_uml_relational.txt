@@ -1,0 +1,137 @@
+create table Account(
+id int primary key auto_increment,
+Account_number double not null unique,
+balance double not null,
+DateOfStart date not null,
+DateOfEnd date not null,
+status enum('Activated', Deactivated')
+);
+
+
+create table person
+(
+id int primary key auto_increment,
+fname varchar(200) not null,
+lname varchar(200) not null,
+Dob Date,
+Address varchar(200) not null,
+contact_no int,
+password varchar(200) not null
+updates int not null,
+foreign key(update) references Account(id)
+on update cascade
+on delete no action,
+emailId varchar(200)
+);
+
+create table customer(
+cust_id int primary key,
+foreign key(id) references person(id)
+on update cascade
+on delete cascade
+);
+
+create table Manager(
+mid int primary key,
+foreign key(id) references person(id)
+on update cascade
+on delete cascade
+);
+
+create table card
+(
+card_id int primary key auto_increment,
+card_no double not null,
+issueDate date not null,
+expDate date not null,
+cvv int not null,
+status enum('Activated', Deactivated')
+);
+
+create table credit(
+credit_id int primary key,
+MaxCredit double not null,
+foreign key(credit_id) references card(card_id)
+on update cascade
+on delete cascade);
+
+create table debit(
+debit_id int primary key,
+foreign key(debit_id) references card(card_id)
+on update cascade
+on delete cascade);
+
+
+create table SavingsAccount(
+sid int primary key,
+InterestRate double not null,
+foreign key(sid) references Account(id)
+on update cascade
+on delete cascade);
+
+create table CheckingAccount(
+caid int primary key,
+foreign key(caid) references Account(id)
+on update cascade
+on delete cascade);
+
+
+create table Transaction
+(
+tid varchar(100) not null unique,
+toAccount double not null,
+fromAccount double not null,
+amount double not null,
+type enum ('deposit','withdraw','transfer','pay'),
+updatedBy int not null,
+updates int not null,
+foreign key(updatedBy) references person(id)
+on update cascade
+on delete cascade,
+foreign key(updates) references Account(id)
+on update cascade
+on delete cascade,
+primary key(updatedBy,updates)
+);
+
+
+create table Loan
+(
+lid int primary key auto_increment,
+amount double not null,
+cid int not null,
+foreign key(cid) references customer(cust_id)
+on update cascade
+on delete no action
+);
+
+
+create table EducationLoan
+(
+eid int primary key,
+rate double not null,
+university varchar(200) not null,
+foreign key(eid) references Loan(id)
+on update cascade
+on delete cascade
+);
+
+create table HomeLoan
+(
+hid int primary key,
+rate double not null,
+address varchar(200) not null,
+foreign key(hid) references Loan(id)
+on update cascade
+on delete cascade
+);
+
+create table CarLoan
+(
+cid int primary key,
+rate double not null,
+carModel varchar(200) not null,
+foreign key(cid) references Loan(id)
+on update cascade
+on delete cascade
+);
