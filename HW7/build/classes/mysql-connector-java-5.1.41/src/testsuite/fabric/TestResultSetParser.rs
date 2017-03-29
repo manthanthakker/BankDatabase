@@ -1,0 +1,3 @@
+testsuite.fabric.TestResultSetParser$1
+testsuite.fabric.TestResultSetParser$2
+testsuite.fabric.TestResultSetParser

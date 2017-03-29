@@ -1,0 +1,2 @@
+com.mysql.jdbc.FailoverConnectionProxy$FailoverJdbcInterfaceProxy
+com.mysql.jdbc.FailoverConnectionProxy

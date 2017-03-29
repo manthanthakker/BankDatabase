@@ -1,0 +1,15 @@
+testsuite.regression.SyntaxRegressionTest$1GisFunction
+testsuite.regression.SyntaxRegressionTest$9
+testsuite.regression.SyntaxRegressionTest$7
+testsuite.regression.SyntaxRegressionTest$8
+testsuite.regression.SyntaxRegressionTest$5
+testsuite.regression.SyntaxRegressionTest$6
+testsuite.regression.SyntaxRegressionTest
+testsuite.regression.SyntaxRegressionTest$3
+testsuite.regression.SyntaxRegressionTest$4
+testsuite.regression.SyntaxRegressionTest$1
+testsuite.regression.SyntaxRegressionTest$2
+testsuite.regression.SyntaxRegressionTest$10
+testsuite.regression.SyntaxRegressionTest$11
+testsuite.regression.SyntaxRegressionTest$12
+testsuite.regression.SyntaxRegressionTest$13

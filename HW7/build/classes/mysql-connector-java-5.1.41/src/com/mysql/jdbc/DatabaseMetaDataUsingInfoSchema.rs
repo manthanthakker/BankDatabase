@@ -1,0 +1,2 @@
+com.mysql.jdbc.DatabaseMetaDataUsingInfoSchema$JDBC4FunctionConstant
+com.mysql.jdbc.DatabaseMetaDataUsingInfoSchema

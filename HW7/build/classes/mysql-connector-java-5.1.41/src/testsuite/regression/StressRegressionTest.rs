@@ -1,0 +1,7 @@
+testsuite.regression.StressRegressionTest$2
+testsuite.regression.StressRegressionTest$SharedInfoForTestBug67760
+testsuite.regression.StressRegressionTest$ContentionThread
+testsuite.regression.StressRegressionTest$1
+testsuite.regression.StressRegressionTest$BusyThread
+testsuite.regression.StressRegressionTest
+testsuite.regression.StressRegressionTest$CreateThread

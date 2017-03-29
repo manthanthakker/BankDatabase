@@ -1,0 +1,1 @@
+com.mysql.fabric.hibernate.FabricMultiTenantConnectionProvider

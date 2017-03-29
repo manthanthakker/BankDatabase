@@ -1,0 +1,3 @@
+testsuite.regression.DataSourceRegressionTest
+testsuite.regression.DataSourceRegressionTest$2
+testsuite.regression.DataSourceRegressionTest$1

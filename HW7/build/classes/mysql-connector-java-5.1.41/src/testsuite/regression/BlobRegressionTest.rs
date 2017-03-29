@@ -1,0 +1,5 @@
+testsuite.regression.BlobRegressionTest$4
+testsuite.regression.BlobRegressionTest$3
+testsuite.regression.BlobRegressionTest
+testsuite.regression.BlobRegressionTest$2
+testsuite.regression.BlobRegressionTest$1

@@ -1,0 +1,2 @@
+testsuite.regression.jdbc4.StatementRegressionTest$subTestBug68916ConcurrentTask
+testsuite.regression.jdbc4.StatementRegressionTest

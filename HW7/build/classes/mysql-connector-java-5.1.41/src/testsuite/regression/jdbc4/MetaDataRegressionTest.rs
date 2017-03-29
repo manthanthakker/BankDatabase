@@ -1,0 +1,1 @@
+testsuite.regression.jdbc4.MetaDataRegressionTest

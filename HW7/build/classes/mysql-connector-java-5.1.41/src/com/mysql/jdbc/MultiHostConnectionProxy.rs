@@ -1,0 +1,2 @@
+com.mysql.jdbc.MultiHostConnectionProxy$JdbcInterfaceProxy
+com.mysql.jdbc.MultiHostConnectionProxy

@@ -1,0 +1,2 @@
+testsuite.regression.PooledConnectionRegressionTest
+testsuite.regression.PooledConnectionRegressionTest$ConnectionListener

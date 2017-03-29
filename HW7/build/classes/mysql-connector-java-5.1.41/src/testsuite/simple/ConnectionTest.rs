@@ -1,0 +1,4 @@
+testsuite.simple.ConnectionTest
+testsuite.simple.ConnectionTest$LocalSocketAddressCheckThread
+testsuite.simple.ConnectionTest$SpawnedWorkerCounter
+testsuite.simple.ConnectionTest$TestEnableEscapeProcessingStatementInterceptor

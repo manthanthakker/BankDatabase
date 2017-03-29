@@ -1,0 +1,76 @@
+1. 
+
+2. 
+
+3. 
+
+4. 
+
+5. 
+
+6. 
+
+
+1. Find all safaris that visit Embu in Kenya.
+
+XML DATA:
+
+//Safari[Visit[@city="Embu" and @country="Kenya"]]
+
+JSON DATA:
+
+//Safari/*[Visit/*[country="Kenya"][city="Embu"]]/name
+
+
+2. Show the total weight of all materials of all safaris that have a name. 
+The result of this query is exactly one value.
+
+XML DATA:
+
+sum(//Safari[string-length(@name) > 0]/Material/@weight)
+
+JSON DATA:
+
+sum(//key('Safari')/*[string-length(name)>0]/Material/*[*]/weight)
+
+3. Show all safaris by name that require at least 1 unit (by weight) of some material. 
+You should omit unnamed safaris.
+
+
+
+//Safari[string-length(@name) > 0][Material[@recommendation='required' and @weight>=1]]/@name
+
+JSON DATA:
+
+//Safari/*[string-length(name)>0][Material/*[recommendation="required"][weight>=1]]/name
+
+4. List the safaris that have more than 3 visits.
+
+XML DATA:
+
+//Safari[count(Visit)>3]
+
+JSON DATA:
+
+//Safari/*[count(Visit/*[city])>=3]/name
+
+5.	List the names of all countries whose name ends in "stan". 
+	Repetitions are allowed.
+
+XML DATA
+//Visit[substring(@country,string-length(@country)-3,4)='stan']/@country
+List the names of all countries whose name ends in "stan". Repetitions are allowed.
+
+JSON DATA
+//Visit/*[substring(country,string-length(country)-4)='stan']/country
+
+
+6.	List the descriptions of all materials optionally used by a safari that visits Dodoma in Tanzania after the third day.
+	Repetitions are allowed.
+
+
+XML DATA
+
+//Safari[Visit[@city='Dodoma' and @country='Tanzania' and @day>3]]/Material[@recommendation='optional']/text()
+
+

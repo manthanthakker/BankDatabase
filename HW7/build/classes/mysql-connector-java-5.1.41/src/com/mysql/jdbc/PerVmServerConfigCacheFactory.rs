@@ -1,0 +1,2 @@
+com.mysql.jdbc.PerVmServerConfigCacheFactory$1
+com.mysql.jdbc.PerVmServerConfigCacheFactory

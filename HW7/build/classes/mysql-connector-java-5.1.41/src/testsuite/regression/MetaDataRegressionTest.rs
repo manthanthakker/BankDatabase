@@ -1,0 +1,2 @@
+testsuite.regression.MetaDataRegressionTest
+testsuite.regression.MetaDataRegressionTest$StatementInterceptorBug61332

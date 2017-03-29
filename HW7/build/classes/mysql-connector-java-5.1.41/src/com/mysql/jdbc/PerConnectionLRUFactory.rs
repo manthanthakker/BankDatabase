@@ -1,0 +1,2 @@
+com.mysql.jdbc.PerConnectionLRUFactory
+com.mysql.jdbc.PerConnectionLRUFactory$PerConnectionLRU

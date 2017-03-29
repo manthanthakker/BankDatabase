@@ -1,0 +1,1 @@
+com.mysql.jdbc.authentication.MysqlOldPasswordPlugin

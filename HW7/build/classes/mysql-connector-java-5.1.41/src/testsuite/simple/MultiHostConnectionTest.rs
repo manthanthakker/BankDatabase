@@ -1,0 +1,4 @@
+testsuite.simple.MultiHostConnectionTest
+testsuite.simple.MultiHostConnectionTest$3
+testsuite.simple.MultiHostConnectionTest$1
+testsuite.simple.MultiHostConnectionTest$2

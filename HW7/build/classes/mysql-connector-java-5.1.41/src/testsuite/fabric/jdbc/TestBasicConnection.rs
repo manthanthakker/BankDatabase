@@ -1,0 +1,1 @@
+testsuite.fabric.jdbc.TestBasicConnection

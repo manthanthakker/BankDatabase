@@ -1,0 +1,3 @@
+com.mysql.jdbc.CallableStatement$CallableStatementParam
+com.mysql.jdbc.CallableStatement
+com.mysql.jdbc.CallableStatement$CallableStatementParamInfo

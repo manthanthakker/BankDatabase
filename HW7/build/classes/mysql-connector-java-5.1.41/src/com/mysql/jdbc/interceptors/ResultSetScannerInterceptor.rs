@@ -1,0 +1,2 @@
+com.mysql.jdbc.interceptors.ResultSetScannerInterceptor
+com.mysql.jdbc.interceptors.ResultSetScannerInterceptor$1

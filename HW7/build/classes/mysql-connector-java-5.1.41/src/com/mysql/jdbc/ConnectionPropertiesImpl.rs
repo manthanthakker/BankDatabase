@@ -1,0 +1,9 @@
+com.mysql.jdbc.ConnectionPropertiesImpl$MemorySizeConnectionProperty
+com.mysql.jdbc.ConnectionPropertiesImpl$IntegerConnectionProperty
+com.mysql.jdbc.ConnectionPropertiesImpl$XmlMap
+com.mysql.jdbc.ConnectionPropertiesImpl$StringConnectionProperty
+com.mysql.jdbc.ConnectionPropertiesImpl
+com.mysql.jdbc.ConnectionPropertiesImpl$BooleanConnectionProperty
+com.mysql.jdbc.ConnectionPropertiesImpl$ConnectionProperty
+com.mysql.jdbc.ConnectionPropertiesImpl$1
+com.mysql.jdbc.ConnectionPropertiesImpl$LongConnectionProperty

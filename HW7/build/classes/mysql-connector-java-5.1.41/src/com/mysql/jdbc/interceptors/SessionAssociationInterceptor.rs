@@ -1,0 +1,1 @@
+com.mysql.jdbc.interceptors.SessionAssociationInterceptor

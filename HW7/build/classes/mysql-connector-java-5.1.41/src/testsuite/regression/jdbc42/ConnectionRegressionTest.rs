@@ -1,0 +1,3 @@
+testsuite.regression.jdbc42.ConnectionRegressionTest$1
+testsuite.regression.jdbc42.ConnectionRegressionTest$2
+testsuite.regression.jdbc42.ConnectionRegressionTest

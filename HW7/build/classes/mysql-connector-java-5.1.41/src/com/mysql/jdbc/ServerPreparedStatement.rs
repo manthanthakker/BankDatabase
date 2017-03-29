@@ -1,0 +1,3 @@
+com.mysql.jdbc.ServerPreparedStatement
+com.mysql.jdbc.ServerPreparedStatement$BindValue
+com.mysql.jdbc.ServerPreparedStatement$BatchedBindValues

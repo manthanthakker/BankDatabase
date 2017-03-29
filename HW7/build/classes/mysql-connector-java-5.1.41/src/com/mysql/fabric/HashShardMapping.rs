@@ -1,0 +1,2 @@
+com.mysql.fabric.HashShardMapping
+com.mysql.fabric.HashShardMapping$ReverseShardIndexSorter

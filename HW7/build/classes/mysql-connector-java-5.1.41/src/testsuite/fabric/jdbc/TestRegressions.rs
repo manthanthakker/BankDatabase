@@ -1,0 +1,2 @@
+testsuite.fabric.jdbc.TestRegressions
+testsuite.fabric.jdbc.TestRegressions$1TestBugInternal

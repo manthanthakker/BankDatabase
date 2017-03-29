@@ -1,0 +1,2 @@
+com.mysql.jdbc.NonRegisteringDriver
+com.mysql.jdbc.NonRegisteringDriver$ConnectionPhantomReference
