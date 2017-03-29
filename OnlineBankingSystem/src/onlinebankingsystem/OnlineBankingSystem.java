@@ -112,6 +112,7 @@ public class OnlineBankingSystem {
 
 class Person
 {
+    int id;
     String fname;
     String lname;
     String date;
@@ -122,36 +123,54 @@ class Person
 }
 class Customer extends Person
 {
-    
+    int cust_id;
 }
-class BankManager extends Person
+class Manager extends Person
 {
-    
+    int manager_id;
 }
 class Account 
 {
+    int acc_id;
+    int acc_no;
+    double balance;
+    String dos;
+    String doe;
+    String status;
     
 }
 class SavingsAccount extends Account
 {
+    int s_id;
     final double ROI=8.5;
 }
 class CheckingAccount extends Account
 {
-    
+    int id;
 }
 
 class Card
 {
+    int cid;
     double cardno;
     double issuedate;
     double expdate;
     int cvv;
     String status;
 }
+class DebitCard
+{
+    int did;
+}
+class CreditCard
+{
+    int cid;
+    double maxcredit;
+}
 class Loan
 {
    int id;
+   double amount;
    
 }
 class EducationLoan extends Loan
@@ -168,6 +187,15 @@ class CarLoan extends Loan
 }
 class HomeLoan extends Loan
 {
+    int h_id;
     double roi;
     String address;
+}
+class Transaction
+{
+    int t_id;
+    double to_id;
+    double from_id;
+    double amount;
+    String type;
 }
