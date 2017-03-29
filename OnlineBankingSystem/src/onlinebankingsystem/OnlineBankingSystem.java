@@ -149,3 +149,25 @@ class Card
     int cvv;
     String status;
 }
+class Loan
+{
+   int id;
+   
+}
+class EducationLoan extends Loan
+{
+   int e_id;
+   double roi;
+   String university;
+}
+class CarLoan extends Loan
+{
+    int c_id;
+    double roi;
+    String car_model;
+}
+class HomeLoan extends Loan
+{
+    double roi;
+    String address;
+}
