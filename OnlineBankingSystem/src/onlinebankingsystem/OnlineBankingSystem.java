@@ -36,36 +36,58 @@ public class OnlineBankingSystem {
      static Card card=null;
      static DebitCard dcard=null;
      static CreditCard ccard=null;
+     static Connection c=null;
      
-     
-    public static void populateperson(int cust_id,Connection c)
+    public static void populatecustomer(int cust_id,Connection c)
     {
             try {
-            PreparedStatement st1=c.prepareStatement("Select ");
-            st1.setInt(1, sid);
+            PreparedStatement st1=c.prepareStatement("Select * from Person where id=? ");
+            st1.setInt(1, cust_id);
             ResultSet rs=st1.executeQuery();
+            PreparedStatement st2=c.prepareStatement("Select * from Customer where cust_id=? ");
+            st2.setInt(1, cust_id);
+            ResultSet rs2=st2.executeQuery();
+            PreparedStatement st3=c.prepareStatement("Select * from Manager where mid=? ");
+            st3.setInt(1, cust_id);
+            ResultSet rs3=st3.executeQuery();
             while(rs.next())
             {
-                 int materialid=rs.getInt(1);
-                 String descriptions=rs.getString(2);
+                 int c_id=rs.getInt(1);
+                 String fname=rs.getString(2);
+                 String lname=rs.getString(3);
+                 String dob=rs.getString(4);
+                 String address=rs.getString(5);
+                 int contact_no=rs.getInt(6);
+                 String password=rs.getString(7);
+                 String email=rs.getString(8);
+                 person=new Person(c_id,fname,lname,dob,address,contact_no,password,email);
                  
-                 double weights=rs.getDouble(3);
-                 int quantity=rs.getInt(4);
-                 String recommendation=rs.getString(5);
-                 //materialsused.add(new MaterialProvision(materialid,descriptions,weights,recommendation));
-                 //System.out.println(materialsused);
                  
+                System.out.println(person);
+            
             } 
+            if(rs2!=null)
+            {
+                customer=new Customer(rs2.getInt(1));
+                System.out.println(customer);
+            }
+            if(rs3!=null)
+            {
+                manager=new Manager(rs3.getInt(1));
+                System.out.println(manager);
+            }
             } catch (SQLException ex) {
             Logger.getLogger(OnlineBankingSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    
     
     public static void main(String[] args) {
        
         
         initialization();
+        populatecustomer(1,c);
         Scanner sc=new Scanner(System.in);
         System.out.println(" ONLINE BANKING SYSTEM ");
         System.out.println("Enter Choice");
@@ -145,6 +167,7 @@ public class OnlineBankingSystem {
 
 			Class.forName(driver);
 			connection = DriverManager.getConnection(url, user, password);
+                        c=connection;
 		} 
                 catch(Exception e) {
 			System.err.println("Unable to connect to the database due to " + e);
@@ -165,14 +188,43 @@ class Person
     int contact;
     String password;
     String email;
+
+    @Override
+    public String toString() {
+        return "Person{" + "id=" + id + ", fname=" + fname + ", lname=" + lname + ", date=" + date + ", address=" + address + ", contact=" + contact + ", password=" + password + ", email=" + email + '}';
+    }
+    public Person()
+    {
+        
+    }
+
+    public Person(int id, String fname, String lname, String date, String address, int contact, String password, String email) {
+        this.id = id;
+        this.fname = fname;
+        this.lname = lname;
+        this.date = date;
+        this.address = address;
+        this.contact = contact;
+        this.password = password;
+        this.email = email;
+    }
 }
 class Customer extends Person
 {
+    
     int cust_id;
+
+    public Customer(int cust_id) {
+        this.cust_id = cust_id;
+    }
 }
 class Manager extends Person
 {
     int manager_id;
+
+    public Manager(int manager_id) {
+        this.manager_id = manager_id;
+    }
 }
 class Account 
 {

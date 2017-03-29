@@ -4,8 +4,7 @@ Account_number double not null unique,
 balance double not null,
 DateOfStart date not null,
 DateOfEnd date not null,
-status enum('Activated', Deactivated')
-);
+status enum("Activated", "Deactivated'));
 
 
 create table person
@@ -16,12 +15,13 @@ lname varchar(200) not null,
 Dob Date,
 Address varchar(200) not null,
 contact_no int,
-password varchar(200) not null
-updates int not null,
-foreign key(update) references Account(id)
+password varchar(200) not null,
+emailId varchar(200),
+updates int ,
+foreign key(updates) references Account(id)
 on update cascade
-on delete no action,
-emailId varchar(200)
+on delete no action
+
 );
 
 create table customer(
