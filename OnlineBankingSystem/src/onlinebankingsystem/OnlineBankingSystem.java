@@ -29,6 +29,7 @@ public class OnlineBankingSystem {
      
      static CheckingAccount check_acc=null;
      static SavingsAccount sav_acc=null;
+     static Loan loan=null;
      static EducationLoan educationlocal=null;
      static HomeLoan homeloan=null;
      static CarLoan carloan=null;
@@ -245,6 +246,7 @@ public class OnlineBankingSystem {
             p.setDouble(1,amount);
             p.setInt(2, accNum);
             ResultSet rs = p.executeQuery();
+            populaterecordsforcustomer(custId,c);
             System.out.println("Your money has been deposited!");
         }
         else
@@ -290,6 +292,7 @@ public class OnlineBankingSystem {
                 p.setDouble(1,amount);
                 p.setInt(2, accNum);
                 ResultSet rs = p.executeQuery();
+                populaterecordsforcustomer(custId,c);
                 System.out.println("Withdrawal successful!");
             }
             else
@@ -309,8 +312,26 @@ public class OnlineBankingSystem {
         {
             initiateWithdrawal(cid,accFrom,amt,t1);
             initiateDeposit(cid,accTo,amt,t2);
+            populaterecordsforcustomer(cid,c);
             
         }
+        
+        public static void assignEducationLoan(int cid, double roi,String univ, double amt) throws SQLException
+        {
+            PreparedStatement p1 = c.prepareStatement("insert into Loan values(?,?,?)");
+            p1.setDouble(1,amt);
+            p1.setInt(2,cid);
+            p1.setString(3, "approved");
+            ResultSet rs = p1.executeQuery();
+            populaterecordsforcustomer(cid,c);
+            PreparedStatement p2 = c.prepareStatement("insert into EducationLoan values(?,?,?)");
+            p2.setInt(1,loan.id);
+            p2.setDouble(2,roi);
+            p2.setString(3,univ);
+            populaterecordsforcustomer(cid,c);
+            System.out.println("Congratulations! Your loan is sanctioned!");
+        }
+        
     public static void getcustdetails()
     {
        System.out.println("All Customer Details");
@@ -425,6 +446,9 @@ public class OnlineBankingSystem {
                 double rate1=sc.nextDouble();
                 System.out.println("Enter the University");
                 String uni=sc.next();
+                System.out.println("Enter the needed amount:");
+                double amt = sc.nextDouble();
+                assignEducationLoan(cust_id,rate1,uni,amt);
                 break;
                 
             case 2:
@@ -432,6 +456,7 @@ public class OnlineBankingSystem {
                 double rate2=sc.nextDouble();
                 System.out.println("Enter the Address");
                 String address=sc.next();
+                
                 break;
                 
             case 3:
