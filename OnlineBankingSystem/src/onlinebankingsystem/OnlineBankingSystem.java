@@ -194,6 +194,123 @@ public class OnlineBankingSystem {
         
         return person.password.equals(password);
     }
+    
+    public static void register(String firstName, String lastName, String dob,String addr, int phone, String email, String pass ) throws SQLException{
+        PreparedStatement p = c.prepareStatement("insert into Person values(?, ?, ?, ?, ?, ?, ?)");
+        p.setString(1, firstName);
+        p.setString(2, lastName);
+        p.setString(3, dob);
+        p.setString(4, addr);
+        p.setInt(5, phone);
+        p.setString(6, pass);
+        p.setString(7, email);
+        ResultSet rs = p.executeQuery();
+        System.out.println("You have registered successfully!");
+    }
+    
+    
+    public static boolean checkAcc(int accNum, int custId, int type)
+    {
+        populaterecordsforcustomer(custId, c);
+        if(type==1)
+        {
+           if (check_acc.acc_no==accNum)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if(type==2)
+        {
+           if (sav_acc.acc_no==accNum)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            } 
+        }
+        return false;
+    }
+    
+    public static void initiateDeposit(int custId, int accNum, double amount, int type) throws SQLException{
+        
+        if(checkAcc(accNum,custId,type))
+        {
+            PreparedStatement p = c.prepareStatement("update Account set balance = balance+? where acc_no=?");
+            p.setDouble(1,amount);
+            p.setInt(2, accNum);
+            ResultSet rs = p.executeQuery();
+            System.out.println("Your money has been deposited!");
+        }
+        else
+        {
+            System.out.println("No such account number exists!");
+        }
+           
+    }
+    public static boolean checkBal(int cid, int t)
+    {
+        populaterecordsforcustomer(cid,c);
+        if (t==1)
+        {
+            if (check_acc.balance>=100)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if(t==2)
+        {
+            if (sav_acc.balance>=100)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return false;
+    }
+        public static void initiateWithdrawal(int custId, int accNum, double amount, int type) throws SQLException{
+        
+        if(checkAcc(accNum,custId,type))
+        {
+            if (checkBal(custId,type))
+            {
+                PreparedStatement p = c.prepareStatement("update Account set balance = balance-? where acc_no=?");
+                p.setDouble(1,amount);
+                p.setInt(2, accNum);
+                ResultSet rs = p.executeQuery();
+                System.out.println("Withdrawal successful!");
+            }
+            else
+            {
+                System.out.println("Low Balance");
+            }
+            
+        }
+        else
+        {
+            System.out.println("No such account number exists!");
+        }
+           
+    }
+        
+        public static void makeTransfer(int accTo, int accFrom, double amt, int cid,int t1, int t2) throws SQLException
+        {
+            initiateWithdrawal(cid,accFrom,amt,t1);
+            initiateDeposit(cid,accTo,amt,t2);
+            
+        }
     public static void getcustdetails()
     {
        System.out.println("All Customer Details");
@@ -203,7 +320,7 @@ public class OnlineBankingSystem {
        System.out.println(" SavingsAccount Details "+ sav_acc);
        System.out.println("Checking Account Details"+check_acc);
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
        
         
        
@@ -233,11 +350,132 @@ public class OnlineBankingSystem {
                      System.out.println("Wrong ID and Password");
                  }
                      
-                        
+                System.out.println("Welcome "+ cust_id +"!");
+                System.out.println("Select your choices");
+                System.out.println("1.Make a transaction\n2.Loan Department\n3.Card Department\n4.View all details");
+                int b=sc.nextInt();
+        switch(b)
+                {
+        case 1:
+                             
+                             System.out.println("Enter the type of Transaction to be made");
+                             System.out.println("1.Deposite\n2.Withdraw\n3.Transfer\n4.Pay Loan Amount");
+                              //Do the respective actions
+                             int x = sc.nextInt();
+                             switch(x)
+                             {
+                                 case 1:
+                                     System.out.println("Enter the account number to make a deposit to");
+                                     int account_number;
+                                     account_number = sc.nextInt();
+                                    System.out.println("Enter the amount");
+                                    double amount;
+                                    amount = sc.nextDouble();
+                                    System.out.println("1.Checking \n2. Savings");
+                                    int type;
+                                    type=sc.nextInt();
+                                    initiateDeposit(cust_id,account_number,amount,type);
+                                     break;
+                                     
+                                 case 2:
+                                     System.out.println("Enter the account number to withdraw from");
+                                     int accNo;
+                                     accNo = sc.nextInt();
+                                    System.out.println("Enter the amount");
+                                    double amt;
+                                    amt = sc.nextDouble();
+                                    System.out.println("1.Checking \n2. Savings");
+                                    int t;
+                                    t=sc.nextInt();
+                                    initiateWithdrawal(cust_id,accNo,amt,t);
+                                     break;
+                                     
+                                
+                                 case 3:
+                                     System.out.println("Enter the account number to make transactions to");
+                                    int account_number_to;
+                                     account_number_to = sc.nextInt();
+                                    System.out.println("Enter the account number to make transactions from");
+                                    int account_number_from;
+                                    account_number_from = sc.nextInt();
+                                    System.out.println("Enter the amount");
+                                    double amnt;
+                                    amnt = sc.nextDouble();
+                                    System.out.println("Account From\n 1.Checking \n2. Savings");
+                                    int t1;
+                                    t1=sc.nextInt();
+                                    System.out.println("Account To\n 1.Checking \n2. Savings");
+                                    int t2;
+                                    t2=sc.nextInt();
+                                    makeTransfer(account_number_to, account_number_from,amnt,cust_id,t1,t2);
+                                    break;
+                             }
+                             
+        
+                             break;
+                             
+        case 2:
+        System.out.println("Input the type of loan needed ");
+        System.out.println("1.Educational Loan\n2.Housing Loan\n3.Car loan");
+        int ch=sc.nextInt();
+        switch(ch)
+        {
+            case 1:
+                System.out.println("Enter rate of interest");
+                double rate1=sc.nextDouble();
+                System.out.println("Enter the University");
+                String uni=sc.next();
+                break;
                 
+            case 2:
+                System.out.println("Enter rate of interest");
+                double rate2=sc.nextDouble();
+                System.out.println("Enter the Address");
+                String address=sc.next();
+                break;
                 
+            case 3:
+                System.out.println("Enter rate of interest");
+                double rate3=sc.nextDouble();
+                System.out.println("Enter the Car model");
+                String car=sc.next();
+                break;
+    }
+        break;
+        
+        case 3:
+            
+        System.out.println("Enter the card no");
+        double card_no;
+        card_no = sc.nextDouble();
+        System.out.println("Enter issue date");
+        String issue_date;
+        issue_date = sc.next();
+        System.out.println("Enter Expiry date");
+        String exp_date;
+        exp_date = sc.next();
+        System.out.println("Enter CVV no");
+        int cvv;
+        cvv = sc.nextInt();
+        System.out.println("Status of Card");
+        String status;
+        status = sc.next();
+        // enum value(activated or deactivated)
+        System.out.println("Input the type of cards needed ");
+        System.out.println("1.Debit card\n2.Credit");
+        //choice of card
+        String dc=sc.next();
+        String cc=sc.next();
+        break;
+          
+        }
                 
-               
+               /*1. Logic for transaction
+                2. logic for loan approval from the manager if applied
+                3. logic for card apporval from manager if applied
+                4. view all details including acc infor, balance, details etc.
+                */
+        
                 break;
             case 2:
                 System.out.println("SIGN UP DETAILS");
@@ -264,8 +502,8 @@ public class OnlineBankingSystem {
                     System.out.println(" Passwords Do not Match!  ");
                 }
                 
-                
-                break;
+                register(fname,lname,DOB,address,phone_number,email,passwordsignup);
+                continue;
              
         }
         }
