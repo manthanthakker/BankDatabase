@@ -34,7 +34,7 @@ public class OnlineBankingSystem {
      static HomeLoan homeloan=null;
      static CarLoan carloan=null;
      static Manager manager=null;
-     
+     static Card card = null;
      static DebitCard dcard=null;
      static CreditCard ccard=null;
      static Connection c=null;
@@ -315,7 +315,45 @@ public class OnlineBankingSystem {
             populaterecordsforcustomer(cid,c);
             
         }
-        
+         public static void assignDebitcard(int cid, String issue_date, String exp_date, Double Card_no, int cvv) throws SQLException
+         {
+          PreparedStatement p1 = c.prepareStatement("insert into Card values(?,?,?,?,?,?)");
+          p1.setDouble(1,Card_no);
+          p1.setString(2,issue_date);
+          p1.setString(3,exp_date);
+          p1.setInt(4,cvv);
+          p1.setString(5, "approved");
+          p1.setInt(6,cid);
+          ResultSet rs = p1.executeQuery();
+          populaterecordsforcustomer(cid,c);
+          PreparedStatement p2 = c.prepareStatement("insert into debitcard values(?)");
+          p2.setInt(1,card.cid);
+          ResultSet rs1 = p2.executeQuery();
+          populaterecordsforcustomer(cid,c);
+          System.out.println("Congratulations! Your Debit card is sanctioned!");
+          
+         }
+         
+         public static void assignCreditcard(int cid, String issue_date, String exp_date, Double Card_no, int cvv,Double max_c) throws SQLException
+         {
+          PreparedStatement p1 = c.prepareStatement("insert into Card values(?,?,?,?,?,?)");
+          p1.setDouble(1,Card_no);
+          p1.setString(2,issue_date);
+          p1.setString(3,exp_date);
+          p1.setInt(4,cvv);
+          p1.setString(5, "approved");
+          p1.setInt(6,cid);
+          ResultSet rs = p1.executeQuery();
+          populaterecordsforcustomer(cid,c);
+          PreparedStatement p2 = c.prepareStatement("insert into creditcard values(?,?)");
+          p2.setInt(1,card.cid);
+          p2.setDouble(2,max_c);
+          ResultSet rs1 = p2.executeQuery();
+          populaterecordsforcustomer(cid,c);
+          System.out.println("Congratulations! Your Credit card is sanctioned!");
+          
+         }
+         
         public static void assignEducationLoan(int cid, double roi,String univ, double amt) throws SQLException
         {
             PreparedStatement p1 = c.prepareStatement("insert into Loan values(?,?,?)");
@@ -526,8 +564,17 @@ public class OnlineBankingSystem {
         System.out.println("Input the type of cards needed ");
         System.out.println("1.Debit card\n2.Credit");
         //choice of card
-        String dc=sc.next();
-        String cc=sc.next();
+        int c=sc.nextInt();
+        switch(c)
+        { case 1:
+            assignDebitcard(cust_id,card_no,issue_date,exp_date,cvv);
+            break;
+        
+            case 2:
+            assignCreditcard(cust_id,card_no,issue_date,exp_date,cvv,max_c);
+            
+            break;
+        }
         break;
           
         }
