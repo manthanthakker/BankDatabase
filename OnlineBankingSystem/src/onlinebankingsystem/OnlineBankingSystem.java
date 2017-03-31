@@ -332,6 +332,38 @@ public class OnlineBankingSystem {
             System.out.println("Congratulations! Your loan is sanctioned!");
         }
         
+         public static void assignHomeLoan(int cid, double roi,String addr, double amt) throws SQLException
+        {
+            PreparedStatement p1 = c.prepareStatement("insert into Loan values(?,?,?)");
+            p1.setDouble(1,amt);
+            p1.setInt(2,cid);
+            p1.setString(3, "approved");
+            ResultSet rs = p1.executeQuery();
+            populaterecordsforcustomer(cid,c);
+            PreparedStatement p2 = c.prepareStatement("insert into HomeLoan values(?,?,?)");
+            p2.setInt(1,loan.id);
+            p2.setDouble(2,roi);
+            p2.setString(3,addr);
+            populaterecordsforcustomer(cid,c);
+            System.out.println("Congratulations! Your loan is sanctioned!");
+        }
+         
+          public static void assignCarLoan(int cid, double roi,String car, double amt) throws SQLException
+        {
+            PreparedStatement p1 = c.prepareStatement("insert into Loan values(?,?,?)");
+            p1.setDouble(1,amt);
+            p1.setInt(2,cid);
+            p1.setString(3, "approved");
+            ResultSet rs = p1.executeQuery();
+            populaterecordsforcustomer(cid,c);
+            PreparedStatement p2 = c.prepareStatement("insert into CarLoan values(?,?,?)");
+            p2.setInt(1,loan.id);
+            p2.setDouble(2,roi);
+            p2.setString(3,car);
+            populaterecordsforcustomer(cid,c);
+            System.out.println("Congratulations! Your loan is sanctioned!");
+        }
+        
     public static void getcustdetails()
     {
        System.out.println("All Customer Details");
@@ -456,7 +488,9 @@ public class OnlineBankingSystem {
                 double rate2=sc.nextDouble();
                 System.out.println("Enter the Address");
                 String address=sc.next();
-                
+                System.out.println("Enter the needed amount:");
+                double amnt = sc.nextDouble();
+                assignHomeLoan(cust_id,rate2,address,amnt);
                 break;
                 
             case 3:
@@ -464,6 +498,9 @@ public class OnlineBankingSystem {
                 double rate3=sc.nextDouble();
                 System.out.println("Enter the Car model");
                 String car=sc.next();
+                System.out.println("Enter the needed amount:");
+                double amount = sc.nextDouble();
+                assignCarLoan(cust_id,rate3,car,amount);
                 break;
     }
         break;
