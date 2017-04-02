@@ -66,7 +66,7 @@ public class OnlineBankingSystem {
                  person=new Person(c_id,fname,lname,dob,address,contact_no,password,email);
                  
                  
-                System.out.println(person);
+                //System.out.println(person);
             
             } 
             if(rs2.next())
@@ -100,7 +100,7 @@ public class OnlineBankingSystem {
                  sav_acc=new SavingsAccount(rs.getInt(1),rs.getInt(2),rs.getDouble(3),rs.getString(4),rs.getString(5),rs.getString(6));
                  
                  
-                System.out.println(sav_acc);
+               // System.out.println(sav_acc);
             
             } 
            
@@ -124,7 +124,7 @@ public class OnlineBankingSystem {
                  check_acc=new CheckingAccount(rs.getInt(1),rs.getInt(2),rs.getDouble(3),rs.getString(4),rs.getString(5),rs.getString(6));
                  
                  
-                System.out.println(check_acc);
+              //  System.out.println(check_acc);
             
             } 
            
@@ -150,7 +150,7 @@ public class OnlineBankingSystem {
                  ccard=new CreditCard(rs.getInt(1),rs.getDouble(2),rs.getDouble(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getString(7));
                  //int cid, double maxcredit, double cardno, double issuedate, double expdate, int cvv, String status
                  
-                System.out.println(ccard);
+              //  System.out.println(ccard);
             
             } 
            
@@ -173,7 +173,7 @@ public class OnlineBankingSystem {
                  dcard=new DebitCard(rs.getInt(1),rs.getDouble(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getString(6));
                  //int cid, double maxcredit, double cardno, double issuedate, double expdate, int cvv, String status
                  
-                System.out.println(dcard);
+          //      System.out.println(dcard);
             
             } 
            
