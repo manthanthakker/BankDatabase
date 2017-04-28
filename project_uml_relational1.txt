@@ -16,9 +16,6 @@ on delete cascade);
 
 
 
-
-
-
 create table CheckingAccount(
 caid int primary key,
 foreign key(caid) references Account(id)
@@ -103,24 +100,52 @@ on delete cascade
 
 
 
-create table Transaction
+
+create table Manager
 (
-tid varchar(100) not null unique,
-toAccount double not null,
-fromAccount double not null,
-amount double not null,
-type enum ('deposit','withdraw','transfer','pay'),
-updatedBy int not null,
-updates int not null,
-foreign key(updatedBy) references person(id)
+mid int primary key,
+foreign key(mid) references person(id)
 on update cascade
-on delete cascade,
-foreign key(updates) references Account(id)
-on update cascade
-on delete cascade,
-primary key(updatedBy,updates)
+on delete cascade
 );
 
+
+/// LOAN MANAGER
+Select loan.loanid,loan.amount,cust_id,a.balance,a.dateofstart,loan.status
+from loan,personaccount pa, account a 
+where loan.status LIKE "pending"
+and loan.cust_id=pa.personid
+and a.id=pa.accid;
+
+update loan set status="approved"
+where loanid=?;
+
+update loan set status="not approved"
+where loanid=?;
+
+// CARD MANAGER
+
+select card_id, card_no,cvv,account_number,balance, dateofstart,card.status 
+from card, personaccount pa, account a 
+where card.status="Deactivated"
+and card.usedBy=pa.personid
+and pa.accid=a.id
+order by card_id;
+
+update card 
+set status="Not Yet Activated",
+where card_id=1;
+
+
+
+
+
+
+
+
+
+
+insert into Manager()
 
 create table Loan
 (
