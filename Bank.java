@@ -6,12 +6,9 @@
     
 package bank;
 import java.util.*;
-/**
- *
- * @author facts
- */
-public class Bank {
 
+public class Bank {
+   
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
