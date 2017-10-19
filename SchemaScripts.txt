@@ -1,64 +1,59 @@
+// RUN THESE COMMANDS IN THE SAME ORDER SCRIPT FOR CREATING A DATABASE IN MYSQL.
+
+
 
 create database bank;
 use bank;
 
 create table Account(
-id int primary key auto_increment,
-Account_number double not null unique,
-balance double not null,
-DateOfStart date not null,
-DateOfEnd date not null,
-status enum("Activated", "Deactivated"));
+	id int primary key auto_increment,
+	Account_number double not null unique,
+	balance double not null,
+	DateOfStart date not null,
+	DateOfEnd date not null,
+	status enum("Activated", "Deactivated"
+));
 
 
 create table SavingsAccount(
-sid int primary key,
-InterestRate double not null,
-foreign key(sid) references Account(id)
-on update cascade
-on delete cascade);
-
-
-
-
+	sid int primary key,
+	InterestRate double not null,
+	foreign key(sid) references Account(id)
+	on update cascade
+	on delete cascade
+	);
 
 
 create table CheckingAccount(
-caid int primary key,
-foreign key(caid) references Account(id)
-on update cascade
-on delete cascade);
-
-
-
-
-
-
-create table person
-(
-id int primary key auto_increment,
-fname varchar(200) not null,
-lname varchar(200) not null,
-Dob Date,
-Address varchar(200) not null,
-contact_no double,
-password varchar(200) not null,
-emailId varchar(200)
-
+	caid int primary key,
+	foreign key(caid) references Account(id)
+	on update cascade
+	on delete cascade
 );
 
-create table customer(
-cust_id int primary key,
-foreign key(cust_id) references person(id)
-on update cascade
-on delete cascade
+
+create table Person(
+	id int primary key auto_increment,
+	fname varchar(200) not null,
+	lname varchar(200) not null,
+	Dob Date,
+	Address varchar(200) not null,
+	contact_no double,
+	password varchar(200) not null,
+	emailId varchar(200)
+);
+
+create table Customer(
+	cust_id int primary key,
+	foreign key(cust_id) references person(id)
+	on update cascade
+	on delete cascade
 );
  
 
 
 
-create table personaccount
-(
+create table Personaccount(
 	accid int not null,
 	personid int not null,
 	foreign key(accid) references Account(id)
@@ -67,120 +62,107 @@ create table personaccount
 	foreign key(personid) references Person(id)
 	on update cascade
 	on delete cascade,
-primary key(accid,personid)
+    primary key(accid,personid)
 
 );
 
 
-
-
-
-
-create table card
-(
-card_id int primary key auto_increment,
-card_no double not null,
-issueDate date not null,
-expDate date not null,
-cvv int not null,
-status enum("Activated", "Deactivated"),
-usedby int,
-foreign key(usedby) references Person(id)
-on update cascade
-on delete cascade
+create table card(
+	card_id int primary key auto_increment,
+	card_no double not null,
+	issueDate date not null,
+	expDate date not null,
+	cvv int not null,
+	status enum("Activated", "Deactivated"),
+	usedby int,
+	foreign key(usedby) references Person(id)
+	on update cascade
+	on delete cascade
 );
 
 create table creditcard(
-credit_id int primary key,
-MaxCredit double not null,
-foreign key(credit_id) references card(card_id)
-on update cascade
-on delete cascade
+	credit_id int primary key,
+	MaxCredit double not null,
+	foreign key(credit_id) references card(card_id)
+	on update cascade
+	on delete cascade
 );
 
 create table debitcard(
-debit_id int primary key,
-foreign key(debit_id) references card(card_id)
-on update cascade
-on delete cascade
+	debit_id int primary key,
+	foreign key(debit_id) references card(card_id)
+	on update cascade
+	on delete cascade
+);
+
+create table Transaction(
+	tid varchar(100) not null unique,
+	toAccount double not null,
+	fromAccount double not null,
+	amount double not null,
+	type enum ('deposit','withdraw','transfer','pay'),
+	updatedBy int not null,
+	updates int not null,
+	foreign key(updatedBy) references person(id)
+	on update cascade
+	on delete cascade,
+	foreign key(updates) references Account(id)
+	on update cascade
+	on delete cascade,
+	primary key(updatedBy,updates)
+);
+
+
+create table Loan(
+	loanid int primary key auto_increment,
+	amount double not null,
+	amountpaid double,
+	amountleft double,
+	cust_id int not null,
+	status varchar(200),
+	foreign key(cust_id) references customer(cust_id)
+	on update cascade
+	on delete no action
+);
+
+
+create table EducationLoan(
+	eid int primary key,
+	roi double not null,
+	university varchar(200) not null,
+	foreign key(eid) references Loan(loanid)
+	on update cascade
+	on delete cascade
+);
+
+create table HomeLoan(
+	hid int primary key,
+	roi double not null,
+	address varchar(200) not null,
+	foreign key(hid) references Loan(loanid)
+	on update cascade
+	on delete cascade
+);
+
+create table CarLoan(
+	cid int primary key,
+	roi double not null,
+	carModel varchar(200) not null,
+	foreign key(cid) references Loan(loanid)
+	on update cascade
+	on delete cascade
 );
 
 
 
-create table Transaction
-(
-tid varchar(100) not null unique,
-toAccount double not null,
-fromAccount double not null,
-amount double not null,
-type enum ('deposit','withdraw','transfer','pay'),
-updatedBy int not null,
-updates int not null,
-foreign key(updatedBy) references person(id)
-on update cascade
-on delete cascade,
-foreign key(updates) references Account(id)
-on update cascade
-on delete cascade,
-primary key(updatedBy,updates)
-);
+TEST DATA:
 
-
-create table Loan
-(
-loanid int primary key auto_increment,
-amount double not null,
-amountpaid double,
-amountleft double,
-cust_id int not null,
-status varchar(200),
-foreign key(cust_id) references customer(cust_id)
-on update cascade
-on delete no action
-);
-
-//int loan_id, double amount, double amount_paid, double amount_left, double roi, String car_model
 
 select loanid,amount,amountpaid,amountleft,roi,university from 
 EducationLoan e 
 Left Join Loan l on
 l.loanid=e.eid
 and l.cust_id=7;
-
-create table EducationLoan
-(
-eid int primary key,
-roi double not null,
-university varchar(200) not null,
-foreign key(eid) references Loan(loanid)
-on update cascade
-on delete cascade
-);
-
-create table HomeLoan
-(
-hid int primary key,
-roi double not null,
-address varchar(200) not null,
-foreign key(hid) references Loan(loanid)
-on update cascade
-on delete cascade
-);
-
-create table CarLoan
-(
-cid int primary key,
-roi double not null,
-carModel varchar(200) not null,
-foreign key(cid) references Loan(loanid)
-on update cascade
-on delete cascade
-);
-
-
-
-DUMMY DATA :
-
 
 // 3 customers : Manthan, Vineet, Shail
 insert into person values (1,"Manthan","Thakker",CURRDATE(),"235 ParkDrive",123456789,"6994","thakker.m@husky.neu.edu");
